@@ -1,0 +1,58 @@
+
+## 📊 Pin Configuration
+
+| GPIO | Component | Function |
+|------|-----------|----------|
+| 27 | L298N | ENB (PWM Speed) |
+| 14 | L298N | IN3 (Direction 1) |
+| 13 | L298N | IN4 (Direction 2) |
+| 16 | IR0 | Floor 0 Detection |
+| 17 | IR1_IN | Floor 1 Entry |
+| 18 | IR1_END | Floor 1 End |
+| 19 | IR2 | Floor 2 Detection |
+| 33 | Button | 0 → 1 |
+| 25 | Button | 0 → 2 |
+| 26 | Button | 1 → 2 |
+| 4 | Button | 1 → 0 |
+| 5 | Button | 2 → 0 |
+| 32 | Button | 2 → 1 |
+| 21 | LCD | SDA (I2C) |
+| 22 | LCD | SCL (I2C) |
+| 15 | Emergency | Stop Button |
+
+## 🛠️ Hardware Components
+
+| Component | Reference | Quantity |
+|-----------|-----------|----------|
+| Microcontroller | ESP32 DevKit v1 | 1 |
+| Motor Driver | L298N | 1 |
+| DC Motor | 12V with Gearbox | 1 |
+| IR Sensor | TCRT5000 | 5 |
+| Push Button | NO, 12mm | 6 |
+| LCD Display | 16x2 I2C | 1 |
+| Power Supply | 12V 2A | 1 |
+| Resistors | 4.7kΩ, 220Ω | Various |
+
+## 📝 Software Implementation
+
+### Development Environment
+
+- **IDE**: PlatformIO (VS Code) / Arduino IDE
+- **Framework**: Arduino
+- **Board**: ESP32 Dev Module
+- **Language**: C++
+- **Libraries**:
+  - `Wire.h` (I2C Communication)
+  - `LiquidCrystal_I2C.h` (LCD Control)
+
+### Key Algorithms
+
+#### 1. FSR6 Call Management
+```cpp
+void verifierArret(int etageDetecte) {
+    if (destinations[etageDetecte]) {
+        stopMoteur();
+        etageCourant = etageDetecte;
+        // Handle call service
+    }
+}
